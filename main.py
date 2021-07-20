@@ -25,7 +25,7 @@ firebase_admin.initialize_app(cred, {
 # DB Related
 ref = db.reference(config()['ROOT'] + config()['COLLECTION_ID'])
 data = ref.child(config()['DATA_TITLE'])
-module = ref.child(config()['MODULE_TITLE'])
+statusData = ref.child('status')
 
 # Calls made to Firebase realtime DB
 
@@ -45,7 +45,7 @@ def updateModuleData(temp, humidity):
 def updateModuleStatus(status):
     id = 'status'
     timestamp = time.time()
-    data.update({
+    statusData.update({
         id: {
             'status': status,
             'timestamp_epoch': timestamp
