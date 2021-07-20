@@ -17,9 +17,6 @@ DHT_PIN = config()['DHT_PIN']
 
 cred = credentials.Certificate('./firebase-secret.json')
 
-# Data vars
-id = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
-
 # Initialize the app with a service account, granting admin privileges
 firebase_admin.initialize_app(cred, {
     'databaseURL': config()['FIREBASE_DATABASE_URL']
@@ -31,6 +28,7 @@ data = ref.child(config()['DATA_TITLE'])
 
 # Call made to Firebase realtime DB
 def updateDB(temp, humidity):
+    id = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
     timestamp = time.time()
     data.update({
         id: {
