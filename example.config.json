@@ -1,0 +1,8 @@
+{    
+    "DHT_PIN": 4,
+    "COLLECTION_ID": "1",
+    "FIREBASE_DATABASE_URL": "",
+    "DATA_TITLE": "",
+    "ROOT": "",
+    "POLLING_INTERVAL": 5
+}

@@ -19,18 +19,19 @@ DHT_PIN = config()['DHT_PIN']
 id = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
 
 # DB Related
-cred = credentials.Certificate('./pi-office-secret.json')
-ref = db.reference('pi/dht' + config()['COLLECTION_ID'])
-temp_hum_data = ref.child('temp_hum_data')
+cred = credentials.Certificate('./firebase-secret.json')
+ref = db.reference(config()['ROOT'] + config()['COLLECTION_ID'])
+data = ref.child(config()['DATA_TITLE'])
 
 # Initialize the app with a service account, granting admin privileges
 firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://pi-office-d68fc-default-rtdb.firebaseio.com/'
+    'databaseURL': config()['FIREBASE_DATABASE_URL']
 })
 
+# Call made to Firebase realtime DB
 def updateDB(temp, humidity):
     timestamp = time.time()
-    temp_hum_data.update({
+    data.update({
         id: {
             'temp': temp,
             'humidity': humidity,
@@ -38,6 +39,7 @@ def updateDB(temp, humidity):
         }
     })
 
+# Polling loop for sensor
 while True:
     humidity, temperature = Adafruit_DHT.read(DHT_SENSOR, DHT_PIN)
     if humidity is not None and temperature is not None:
@@ -45,4 +47,4 @@ while True:
         updateDB(temperature, humidity)
     else:
         print("Sensor failure. Check wiring.")
-    time.sleep(3)
+    time.sleep(config()['POLLING_INTERVAL')
