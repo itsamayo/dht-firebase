@@ -32,9 +32,9 @@ def updateDB(temp, humidity):
     timestamp = time.time()
     data.update({
         id: {
-            'temp': temp,
-            'humidity': humidity,
-            'timestamp': int(timestamp)
+            'temp_celcius': temp,
+            'humidity_percent': humidity,
+            'timestamp_epoch': int(timestamp)
         }
     })
 
