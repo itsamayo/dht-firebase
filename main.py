@@ -44,9 +44,7 @@ def updateModuleData(temp, humidity):
 # Sensor Status
 def updateModuleStatus(status):
     id = 'status'
-    statusData.update({
-        id: status
-    })
+    statusData.update(status)
 
 # Polling loop for sensor
 while True:
