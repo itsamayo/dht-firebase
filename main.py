@@ -15,6 +15,8 @@ def config():
 DHT_SENSOR = Adafruit_DHT.DHT11
 DHT_PIN = config()['DHT_PIN']
 
+cred = credentials.Certificate('./firebase-secret.json')
+
 # Data vars
 id = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
 
@@ -24,7 +26,6 @@ firebase_admin.initialize_app(cred, {
 })
 
 # DB Related
-cred = credentials.Certificate('./firebase-secret.json')
 ref = db.reference(config()['ROOT'] + config()['COLLECTION_ID'])
 data = ref.child(config()['DATA_TITLE'])
 
