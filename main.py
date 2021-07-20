@@ -43,9 +43,11 @@ def updateModuleData(temp, humidity):
 
 # Sensor Status
 def updateModuleStatus(status):    
+    timestamp = time.time()
     statusData.update({
         'sensor_status': status,
-        'polling_interval': config()['POLLING_INTERVAL']
+        'polling_interval': config()['POLLING_INTERVAL'],
+        'last_poll_epoch': int(timestamp)
     })
 
 # Polling loop for sensor
