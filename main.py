@@ -25,7 +25,7 @@ firebase_admin.initialize_app(cred, {
 # DB Related
 ref = db.reference(config()['ROOT'] + config()['COLLECTION_ID'])
 data = ref.child(config()['DATA_TITLE'])
-statusData = ref.child('module_status')
+statusData = ref.child('module_info')
 
 # Calls made to Firebase realtime DB
 
