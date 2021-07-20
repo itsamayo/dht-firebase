@@ -47,4 +47,4 @@ while True:
         updateDB(temperature, humidity)
     else:
         print("Sensor failure. Check wiring.")
-    time.sleep(config()['POLLING_INTERVAL')
+    time.sleep(config()['POLLING_INTERVAL'])
