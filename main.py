@@ -42,10 +42,10 @@ def updateModuleData(temp, humidity):
     })
 
 # Sensor Status
-def updateModuleStatus(status):
-    id = 'status'
+def updateModuleStatus(status):    
     statusData.update({
-        id: status
+        'sensor_status': status,
+        'polling_interval': config()['POLLING_INTERVAL']
     })
 
 # Polling loop for sensor
