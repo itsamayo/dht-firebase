@@ -25,9 +25,12 @@ firebase_admin.initialize_app(cred, {
 # DB Related
 ref = db.reference(config()['ROOT'] + config()['COLLECTION_ID'])
 data = ref.child(config()['DATA_TITLE'])
+module = ref.child(config()['MODULE_TITLE'])
 
-# Call made to Firebase realtime DB
-def updateDB(temp, humidity):
+# Calls made to Firebase realtime DB
+
+# Module Data
+def updateModuleData(temp, humidity):
     id = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
     timestamp = time.time()
     data.update({
@@ -38,12 +41,25 @@ def updateDB(temp, humidity):
         }
     })
 
+# Sensor Status
+def updateModuleStatus(status):
+    id = 'status'
+    timestamp = time.time()
+    data.update({
+        id: {
+            'status': status,
+            'timestamp_epoch': timestamp
+        }
+    })
+
 # Polling loop for sensor
 while True:
     humidity, temperature = Adafruit_DHT.read(DHT_SENSOR, DHT_PIN)
     if humidity is not None and temperature is not None:
         print("Temp={0:0.1f}C Humidity={1:0.1f}%".format(temperature, humidity))
-        updateDB(temperature, humidity)
+        updateModuleData(temperature, humidity)
+        updateModuleStatus("online")
     else:
         print("Sensor failure. Check wiring.")
+        updateModuleStatus("offline")        
     time.sleep(config()['POLLING_INTERVAL'])
