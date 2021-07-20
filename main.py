@@ -20,7 +20,7 @@ id = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in rang
 
 # DB Related
 cred = credentials.Certificate('./pi-office-secret.json')
-ref = db.reference('pi/dht')
+ref = db.reference('pi/dht' + config()['COLLECTION_ID'])
 temp_hum_data = ref.child('temp_hum_data')
 
 # Initialize the app with a service account, granting admin privileges
