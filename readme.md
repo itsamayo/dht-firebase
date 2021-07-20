@@ -1,5 +1,7 @@
 ### DHT script for posting updates to Firebase Realtime DB  
 
+Updates from a DHT sensor are polled and pushed to a firebase realtime DB for monitoring.
+
 ### Setup  
 
 1. Create a `config.json` file in the root using the `example.config.json` as a template
