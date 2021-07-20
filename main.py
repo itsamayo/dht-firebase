@@ -48,7 +48,7 @@ def updateModuleStatus(status):
     statusData.update({
         id: {
             'status': status,
-            'timestamp_epoch': timestamp
+            'timestamp_epoch': int(timestamp)
         }
     })
 
