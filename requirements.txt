@@ -1,2 +1,2 @@
-Adafruit_DHT=1.4.0
-firebase-admin=2.3.0
+Adafruit_DHT==1.4.0
+firebase-admin==2.3.0
