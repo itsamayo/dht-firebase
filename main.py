@@ -12,7 +12,7 @@ def config():
     with open('./config.json', "r") as f:
         return json.load(f)
 
-DHT_SENSOR = Adafruit_DHT.DHT11
+DHT_SENSOR = Adafruit_DHT.DHT22
 DHT_PIN = config()['DHT_PIN']
 
 cred = credentials.Certificate('./firebase-secret.json')
@@ -51,12 +51,17 @@ def updateModuleStatus(status):
     })
 
 # Polling loop for sensor
+last_temp = 0
+last_humidity = 0
 while True:
     humidity, temperature = Adafruit_DHT.read(DHT_SENSOR, DHT_PIN)
     if humidity is not None and temperature is not None:
         print("Temp={0:0.1f}C Humidity={1:0.1f}%".format(temperature, humidity))
-        updateModuleData(temperature, humidity)
-        updateModuleStatus("online")
+        if (temperature != last_temp or humidity != last_humidity):
+            updateModuleData(temperature, humidity)
+            updateModuleStatus('online')
+            last_temp = temperature
+            last_humidity = humidity        
     else:
         print("Sensor failure. Check wiring.")
         updateModuleStatus("offline")        
