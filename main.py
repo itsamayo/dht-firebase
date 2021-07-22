@@ -42,12 +42,14 @@ def updateModuleData(temp, humidity):
     })
 
 # Sensor Status
-def updateModuleStatus(status):    
+def updateModuleStatus(status, temp, humidity):    
     timestamp = time.asctime()
     statusData.update({
         'sensor_status': status,
         'polling_interval_sec': config()['POLLING_INTERVAL'],
-        'last_update': timestamp
+        'last_update': timestamp,
+        'last_temp': temp,
+        'last_humidity': humidity
     })
 
 # Polling loop for sensor
@@ -59,10 +61,10 @@ while True:
         print("Temp={0:0.1f}C Humidity={1:0.1f}%".format(temperature, humidity))
         if (temperature != last_temp or humidity != last_humidity):
             updateModuleData(temperature, humidity)
-            updateModuleStatus('online')
+            updateModuleStatus('online', temperature, humidity)
             last_temp = temperature
             last_humidity = humidity        
     else:
         print("Sensor failure. Check wiring.")
-        updateModuleStatus("offline")        
+        updateModuleStatus("offline", last_temp, last_humidity)        
     time.sleep(config()['POLLING_INTERVAL'])
