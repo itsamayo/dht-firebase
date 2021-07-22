@@ -60,10 +60,10 @@ while True:
     if humidity is not None and temperature is not None:
         print("Temp={0:0.1f}C Humidity={1:0.1f}%".format(temperature, humidity))
         if (temperature != last_temp or humidity != last_humidity):
-            updateModuleData(temperature, humidity)
-            updateModuleStatus('online', temperature, humidity)
+            updateModuleData(temperature, humidity)            
             last_temp = temperature
-            last_humidity = humidity        
+            last_humidity = humidity
+        updateModuleStatus('online', temperature, humidity)
     else:
         print("Sensor failure. Check wiring.")
         updateModuleStatus("offline", last_temp, last_humidity)        
