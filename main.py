@@ -63,7 +63,7 @@ while True:
             updateModuleData(temperature, humidity)            
             last_temp = temperature
             last_humidity = humidity
-        updateModuleStatus('online', temperature, humidity)
+        updateModuleStatus('online', last_temp, last_humidity)
     else:
         print("Sensor failure. Check wiring.")
         updateModuleStatus("offline", last_temp, last_humidity)        
