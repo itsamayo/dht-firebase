@@ -32,22 +32,22 @@ statusData = ref.child('module_info')
 # Module Data
 def updateModuleData(temp, humidity):
     id = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
-    timestamp = time.time()
+    timestamp = time.asctime()
     data.update({
         id: {
             'temp_celcius': temp,
             'humidity_percent': humidity,
-            'timestamp_epoch': int(timestamp)
+            'last_update': timestamp
         }
     })
 
 # Sensor Status
 def updateModuleStatus(status):    
-    timestamp = time.time()
+    timestamp = time.asctime()
     statusData.update({
         'sensor_status': status,
         'polling_interval_sec': config()['POLLING_INTERVAL'],
-        'last_poll_epoch': int(timestamp)
+        'timestamp': timestamp
     })
 
 # Polling loop for sensor
